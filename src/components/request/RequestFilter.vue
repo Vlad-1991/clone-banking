@@ -16,13 +16,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {ref, watch, computed} from 'vue'
 
 export default {
   emits: ['update:modelValue'],
   props: ['modelValue'],
-  setup(_, {emit}){
+  setup(_: any, {emit}: any){
     const name = ref()
     const status = ref()
 

@@ -2,38 +2,41 @@ import { createStore, createLogger } from 'vuex'
 import auth from "./modules/auth.module";
 import request from "./modules/request.module";
 
-const plugins = []
+const plugins: any [] = []
 
 if(process.env.NODE_ENV === 'development'){
   plugins.push(createLogger())
 }
 
+type state = {message: null | string, sidebar: boolean}
+
+// @ts-ignore
 export default createStore({
   plugins,
-  state(){
+  state(): state{
     return {
       message: null,
       sidebar: false
     }
   },
   mutations: {
-    setMessage(state, message){
+    setMessage(state: state, message: string){
       state.message = message
     },
-    clearMessage(state){
+    clearMessage(state: state): void{
       state.message = null
     },
-    openSideBar(state){
+    openSideBar(state: state): void{
       state.sidebar = true
     },
-    closeSideBar(state){
+    closeSideBar(state: state): void{
       state.sidebar = false
     }
   },
   actions: {
-    setMessage({commit}, message){
+    setMessage({commit}, message: string): void{
       commit('setMessage', message)
-      setTimeout(() => {
+      setTimeout((): void => {
         commit('clearMessage')
       }, 5000)
     }

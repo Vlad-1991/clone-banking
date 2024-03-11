@@ -1,23 +1,24 @@
 import axios from '../../axios/request'
 import store from '../index'
+type state = {requests: any[]}
 
 export default {
     namespaced: true,
-    state() {
+    state(): state {
         return {
             requests: []
         }
     },
     mutations: {
-        setRequests(state, requests) {
+        setRequests(state: state, requests: any[]): void {
             state.requests = requests
         },
-        addRequest(state, request) {
+        addRequest(state: state, request: any): void {
             state.requests.push(request)
         }
     },
     actions: {
-        async create({commit, dispatch}, payload) {
+        async create({commit, dispatch}: any, payload: any): Promise<void> {
             try {
                 const token = store.getters["auth/token"]
                 const {data} = await axios.post(`/requests.json?auth=${token}`, payload)
@@ -26,39 +27,39 @@ export default {
                     value: 'Заявка успешно создана',
                     type: 'primary'
                 }, {root: true})
-            } catch (e) {
+            } catch (e: any) {
                 dispatch('setMessage', {
                     value: e.message,
                     type: 'danger'
                 }, {root: true})
             }
         },
-        async load({commit, dispatch}){
+        async load({commit, dispatch}: any): Promise<void>{
             try {
                 const token = store.getters["auth/token"]
                 const {data} = await axios.get(`/requests.json?auth=${token}`)
-                const requests = Object.keys(data).map(id => ({...data[id], id}))
+                const requests: any[] = Object.keys(data).map(id => ({...data[id], id}))
                 commit('setRequests', requests)
-            } catch (e) {
+            } catch (e: any) {
                 dispatch('setMessage', {
                     value: e.message,
                     type: 'danger'
                 }, {root: true})
             }
         },
-        async loadById({commit, dispatch}, id){
+        async loadById({commit, dispatch}: any, id: string): Promise<any>{
             try {
                 const token = store.getters["auth/token"]
                 const {data} = await axios.get(`/requests/${id}.json?auth=${token}`)
                 return data
-            } catch (e) {
+            } catch (e: any) {
                 dispatch('setMessage', {
                     value: e.message,
                     type: 'danger'
                 }, {root: true})
             }
         },
-        async remove({ dispatch}, id){
+        async remove({ dispatch}: any, id: string): Promise<void>{
             try {
                 const token = store.getters["auth/token"]
                 await axios.delete(`/requests/${id}.json?auth=${token}`)
@@ -66,14 +67,14 @@ export default {
                     value: 'Заявка удалена',
                     type: 'primary'
                 }, {root: true})
-            } catch (e) {
+            } catch (e: any) {
                 dispatch('setMessage', {
                     value: e.message,
                     type: 'danger'
                 }, {root: true})
             }
         },
-        async update({ dispatch}, request){
+        async update({ dispatch}: any, request: any): Promise<void>{
             try {
                 const token = store.getters["auth/token"]
                 await axios.put(`/requests/${request.id}.json?auth=${token}`, request)
@@ -81,7 +82,7 @@ export default {
                     value: 'Заявка обновлена',
                     type: 'primary'
                 }, {root: true})
-            } catch (e) {
+            } catch (e: any) {
                 dispatch('setMessage', {
                     value: e.message,
                     type: 'danger'
@@ -90,7 +91,7 @@ export default {
         }
     },
     getters: {
-        requests(state) {
+        requests(state: state): any[] {
             return state.requests
         }
     }

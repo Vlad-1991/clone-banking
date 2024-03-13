@@ -18,7 +18,7 @@
 
 </template>
 
-<script>
+<script lang="ts">
 import {ref, computed, onMounted} from "vue";
 import AppPage from "@/components/ui/AppPage.vue";
 import RequestTable from "@/components/request/RequestTable.vue";

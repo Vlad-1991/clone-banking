@@ -23,7 +23,7 @@ export default {
     actions: {
       async login({ commit, dispatch }: any, payload: any){
           try{
-              const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.VUE_APP_FB_KEY}`
+              const url: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.VUE_APP_FB_KEY}`
               const {data} = await axios.post(url, {...payload, returnSecureToken: true})
               commit('setToken', data.idToken)
               commit('clearMessage', null, {root: true})
@@ -40,7 +40,7 @@ export default {
         token(state: state): string | null {
             return state.token
         },
-        isAuthentificated(_: any, getters: any){
+        isAuthentificated(_: any, getters: any): boolean{
             return !!getters.token
         }
     }

@@ -2,7 +2,7 @@
 <component :is="layout + '-layout'" v-if="layout"></component>
 </template>
 
-<script>
+<script lang="ts">
 import {computed} from "vue";
 import AuthLayout from "@/layout/AuthLayout.vue";
 import MainLayout from "@/layout/MainLayout.vue";

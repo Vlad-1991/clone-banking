@@ -28,7 +28,7 @@
   </table>
 </template>
 
-<script>
+<script lang="ts">
 import {currency} from "../../../utils/currency";
 import AppStatus from "@/components/ui/AppStatus.vue";
 

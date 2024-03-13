@@ -20,7 +20,7 @@ export default createStore({
     }
   },
   mutations: {
-    setMessage(state: state, message: string){
+    setMessage(state: state, message: string): void{
       state.message = message
     },
     clearMessage(state: state): void{

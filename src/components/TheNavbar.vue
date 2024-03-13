@@ -19,7 +19,7 @@
   </nav>
 </template>
 
-<script>
+<script lang="ts">
 import {useRouter} from "vue-router";
 import {useStore} from "vuex";
 

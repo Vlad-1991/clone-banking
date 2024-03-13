@@ -3,6 +3,7 @@ import * as yup from "yup";
 import {computed, watch} from "vue";
 import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
+const MIN_LENGTH = 6
 
 export function useLoginForm(){
 
@@ -15,7 +16,6 @@ export function useLoginForm(){
         yup.string().trim().required('Пожалуйста введите email').email('Необходимо ввести корректный email')
     )
 
-    const MIN_LENGTH = 6
 
     const {value: password, errorMessage: pError, handleBlur: pBlur} = useField(
         'password',
@@ -32,14 +32,12 @@ export function useLoginForm(){
     })
 
     const onSubmit = handleSubmit(async values => {
-      //  console.log('Form: ', values)
         try {
             await store.dispatch('auth/login', values)
             router.push('/')
         }catch (e){
 
         }
-
     })
 
     return {

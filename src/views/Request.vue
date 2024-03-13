@@ -24,7 +24,7 @@
   </h3>
 </template>
 
-<script>
+<script lang="ts">
 import {useRoute, useRouter} from "vue-router";
 import AppPage from "@/components/ui/AppPage.vue";
 import {ref, onMounted, computed} from "vue";

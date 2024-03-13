@@ -21,7 +21,7 @@
   </form>
 </template>
 
-<script>
+<script lang="ts">
 import {useLoginForm} from "@/use/login-form";
 import {useRoute} from 'vue-router'
 import {useStore} from "vuex";

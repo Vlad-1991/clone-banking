@@ -6,7 +6,7 @@
 
 </template>
 
-<script>
+<script lang="ts">
 import AppMessage from "@/components/ui/AppMessage.vue";
 export default {
 components: {AppMessage}

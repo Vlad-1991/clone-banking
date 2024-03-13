@@ -40,7 +40,7 @@ export default {
     const router = useRouter()
     const store = useStore()
     const status = ref()
-    const request = ref({})
+    const request = ref({status: ''})
 
     onMounted(async () => {
       loading.value = true

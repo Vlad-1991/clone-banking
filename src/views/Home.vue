@@ -33,7 +33,7 @@ export default {
     const store = useStore()
     const modal = ref(false)
     const loading = ref(false)
-    const filter = ref({})
+    const filter = ref({name: '', status: ''})
 
 
     onMounted(async () => {
@@ -43,13 +43,13 @@ export default {
     })
 
     const requests = computed(() => store.getters['request/requests']
-        .filter(request => {
+        .filter((request: { fio: string | string[]; }) => {
           if (filter.value.name) {
             return request.fio.includes(filter.value.name)
           }
           return request
         })
-        .filter(request => {
+        .filter((request: { status: string; }) => {
           if(filter.value.status){
             return filter.value.status === request.status
           }

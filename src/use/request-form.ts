@@ -11,6 +11,7 @@ export function useRequestForm(fn: any){
         'fio',
         yup.string()
             .trim()
+            .min(3, 'ФИО не может быть меньше 3 символов')
             .required('Введите ФИО клиента ')
     )
     const {value: phone, errorMessage: pError, handleBlur: pBlur} = useField(

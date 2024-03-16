@@ -2,19 +2,19 @@
   <form @submit.prevent="onSubmit">
     <div class="form-control" :class="{invalid: fError}">
       <label for="fio">ФИО</label>
-      <input type="text" id="fio" v-model="fio" @blur="fBlur">
+      <input type="text" id="fio" placeholder="Сидоров Петр Иванович" v-model="fio" @blur="fBlur">
       <small v-if="fError">{{fError}}</small>
     </div>
 
     <div class="form-control" :class="{invalid: pError}">
       <label for="phone">Телефон</label>
-      <input type="text" id="phone" v-model="phone" @blur="pBlur">
+      <input type="tel" pattern="[0-9]{3}-{0,1}[0-9]{3}-{0,1}[0-9]{4}" placeholder="123-456-7890" id="phone" v-model="phone" @blur="pBlur">
       <small v-if="pError">{{pError}}</small>
     </div>
 
     <div class="form-control" :class="{invalid: aError}">
       <label for="amount">Суммы</label>
-      <input type="number" id="amount" v-model.number="amount" @blur="aBlur">
+      <input type="number" placeholder="5000" id="amount" v-model.number="amount" @blur="aBlur">
       <small v-if="aError">{{aError}}</small>
     </div>
 

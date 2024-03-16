@@ -3,9 +3,12 @@ import * as yup from "yup";
 import {computed, watch} from "vue";
 import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
+import {login} from "@/services/api/auth";
+import {error} from "../../utils/error";
+
 const MIN_LENGTH = 6
 
-export function useLoginForm(){
+export function useLoginForm() {
 
     const store = useStore()
     const router = useRouter()
@@ -26,19 +29,25 @@ export function useLoginForm(){
     const isTooManyAttempts = computed(() => submitCount.value >= 3)
 
     watch(isTooManyAttempts, val => {
-        if(val){
+        if (val) {
             setTimeout(() => submitCount.value = 0, 1500)
         }
     })
 
     const onSubmit = handleSubmit(async values => {
-        try {
-            await store.dispatch('auth/login', values)
-            router.push('/')
-        }catch (e){
-
+            try {
+                let data = await login(values)
+                store.commit('auth/setToken', data.idToken)
+                store.commit('clearMessage', null, {root: true})
+                router.push('/')
+            } catch (e: any) {
+                await store.dispatch('setMessage', {
+                    value: error(e.response.data.error.message),
+                    type: 'danger'
+                }, {root: true})
+            }
         }
-    })
+    )
 
     return {
         email,

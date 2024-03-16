@@ -5,6 +5,7 @@ import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
 import {login} from "@/services/api/auth";
 import {error} from "../../utils/error";
+import {showError} from "../../utils/showError";
 
 const MIN_LENGTH = 6
 
@@ -41,10 +42,7 @@ export function useLoginForm() {
                 store.commit('clearMessage', null, {root: true})
                 router.push('/')
             } catch (e: any) {
-                await store.dispatch('setMessage', {
-                    value: error(e.response.data.error.message),
-                    type: 'danger'
-                }, {root: true})
+                await showError(e.response.data.error)
             }
         }
     )

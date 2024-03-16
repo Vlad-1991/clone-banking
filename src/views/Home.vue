@@ -27,6 +27,9 @@ import RequestModal from "@/components/request/RequestModal.vue";
 import RequestFilter from "@/components/request/RequestFilter.vue";
 import {useStore} from "vuex";
 import AppLoader from "@/components/ui/AppLoader.vue";
+import {load} from "@/services/api/requests";
+import {showError} from "../../utils/showError";
+
 
 export default {
   setup() {
@@ -36,9 +39,17 @@ export default {
     const filter = ref({name: '', status: ''})
 
 
+
     onMounted(async () => {
       loading.value = true
-      await store.dispatch('request/load')
+
+      try{
+        let requests = await load()
+        store.commit('request/setRequests', requests)
+      }catch (e: any) {
+        await showError(e)
+      }
+
       loading.value = false
     })
 

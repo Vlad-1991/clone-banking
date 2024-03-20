@@ -21,19 +21,21 @@
 
 <script lang="ts">
 import {useRouter} from "vue-router";
-import {useStore} from "vuex";
+import {useUiStore} from "@/stores/UiStore";
+import {useAuthStore} from "@/stores/AuthUserStore";
 
 export default {
   setup(){
     const router = useRouter()
-    const store = useStore()
+    const UiStore = useUiStore()
+    const AuthStore = useAuthStore()
 
     return {
       logout: () => {
-        store.commit('auth/logout')
+        AuthStore.logout()
         router.push('/auth')
       },
-      openSideBar: () => store.commit('openSideBar')
+      openSideBar: () => UiStore.openSideBar()
     }
   }
 }

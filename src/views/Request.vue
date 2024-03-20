@@ -28,20 +28,19 @@
 import {useRoute, useRouter} from "vue-router";
 import AppPage from "@/components/ui/AppPage.vue";
 import {ref, onMounted, computed} from "vue";
-import {useStore} from "vuex";
 import AppLoader from "@/components/ui/AppLoader.vue";
 import AppStatus from "@/components/ui/AppStatus.vue";
 import {currency} from "../../utils/currency";
 import {loadById, removeById, updateRequest} from "@/services/api/requests";
 import {showError} from "../../utils/showError";
-import store from "@/store";
+import {useUiStore} from "@/stores/UiStore";
 
 export default {
   setup(){
     const loading = ref(true)
     const route = useRoute()
     const router = useRouter()
-    const store = useStore()
+    const UiStore = useUiStore()
     const status = ref()
     const request = ref({status: ''})
 
@@ -62,10 +61,9 @@ export default {
     const hasChanges = computed(() => request.value.status !== status.value)
 
     const remove = async () => {
-     // await store.dispatch('request/remove', route.params.id)
       try{
         await removeById(route.params.id)
-        await store.dispatch('setMessage', {
+        await UiStore.setMessage({
           value: 'Заявка удалена',
           type: 'primary'
         })
@@ -78,13 +76,12 @@ export default {
 
     const update = async () => {
       const data = {...request.value, status: status.value, id: route.params.id}
-      //await store.dispatch('request/update', data)
       try{
         await updateRequest(data)
-        await store.dispatch('setMessage', {
+        await UiStore.setMessage({
           value: 'Заявка обновлена',
           type: 'primary'
-        }, {root: true})
+        })
       }catch (e) {
         await showError(e)
       }

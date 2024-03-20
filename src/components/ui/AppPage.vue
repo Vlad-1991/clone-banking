@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {boolean} from "yup";
+
 
 export default {
   props: {

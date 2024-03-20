@@ -11,18 +11,18 @@
 </template>
 
 <script lang="ts">
-import {useStore} from "vuex";
 import {computed} from "vue";
+import {useUiStore} from "@/stores/UiStore";
 
 export default {
   setup(){
-    const store = useStore()
+    const UiStore = useUiStore()
 
-    const sidebar = computed(() => store.state.sidebar)
+    const sidebar = computed(() => UiStore.sidebar)
 
     return {
       sidebar,
-      close: () => store.commit('closeSideBar')
+      close: () => UiStore.closeSideBar()
     }
   }
 }

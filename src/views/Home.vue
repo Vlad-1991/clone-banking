@@ -25,15 +25,16 @@ import RequestTable from "@/components/request/RequestTable.vue";
 import AppModal from "@/components/ui/AppModal.vue";
 import RequestModal from "@/components/request/RequestModal.vue";
 import RequestFilter from "@/components/request/RequestFilter.vue";
-import {useStore} from "vuex";
+import {useRequestsStore} from "@/stores/RequestsStore";
 import AppLoader from "@/components/ui/AppLoader.vue";
 import {load} from "@/services/api/requests";
 import {showError} from "../../utils/showError";
+import {requestType} from "../../utils/requestType";
 
 
 export default {
   setup() {
-    const store = useStore()
+    const RequestsStore = useRequestsStore()
     const modal = ref(false)
     const loading = ref(false)
     const filter = ref({name: '', status: ''})
@@ -45,7 +46,7 @@ export default {
 
       try{
         let requests = await load()
-        store.commit('request/setRequests', requests)
+        RequestsStore.setRequests(requests)
       }catch (e: any) {
         await showError(e)
       }
@@ -53,14 +54,14 @@ export default {
       loading.value = false
     })
 
-    const requests = computed(() => store.getters['request/requests']
-        .filter((request: { fio: string | string[]; }) => {
+    const requests = computed(() => RequestsStore.getRequests
+        .filter((request: requestType) => {
           if (filter.value.name) {
-            return request.fio.includes(filter.value.name)
+            return (request.fio).toLowerCase().includes(filter.value.name.toLowerCase())
           }
           return request
         })
-        .filter((request: { status: string; }) => {
+        .filter((request: requestType) => {
           if(filter.value.status){
             return filter.value.status === request.status
           }

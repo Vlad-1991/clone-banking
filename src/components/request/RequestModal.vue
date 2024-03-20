@@ -34,26 +34,28 @@
 
 <script lang="ts">
 import {useRequestForm} from "@/use/request-form";
-import {useStore} from "vuex";
 import {create} from "@/services/api/requests"
 import {ref} from "vue";
 import {showError} from "../../../utils/showError";
+import {useUiStore} from "@/stores/UiStore";
+import {useRequestsStore} from "@/stores/RequestsStore";
 
 export default {
   emits: ['created'],
   setup: function (_: any, {emit}: any) {
-    const store = useStore()
-    const loading = ref(false)
+
+    const UiStore = useUiStore()
+    const RequestsStore = useRequestsStore()
 
     const submit = async (values: any) => {
       try {
         let data = await create(values)
-        store.commit('request/addRequest', {...values, id: data.name})
+        RequestsStore.addRequest({...values, id: data.name})
 
-        await store.dispatch('setMessage', {
+        await UiStore.setMessage({
           value: 'Заявка успешно создана',
           type: 'primary'
-        }, {root: true})
+        })
 
       } catch (e: any) {
         await showError(e)

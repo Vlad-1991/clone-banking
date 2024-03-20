@@ -1,0 +1,1 @@
+export type requestType = {amount: number, fio: string, id: string, phone: string, status: string}

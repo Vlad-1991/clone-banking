@@ -1,17 +1,19 @@
 import {useField, useForm} from "vee-validate";
 import * as yup from "yup";
 import {computed, watch} from "vue";
-import {useStore} from 'vuex'
+import {useUiStore} from "@/stores/UiStore";
+import {useAuthStore} from "@/stores/AuthUserStore";
 import {useRouter} from 'vue-router'
 import {login} from "@/services/api/auth";
-import {error} from "../../utils/error";
 import {showError} from "../../utils/showError";
 
 const MIN_LENGTH = 6
 
 export function useLoginForm() {
 
-    const store = useStore()
+    //const store = useStore()
+    const UiStore = useUiStore()
+    const AuthStore = useAuthStore()
     const router = useRouter()
     const {handleSubmit, isSubmitting, submitCount} = useForm()
 
@@ -38,9 +40,9 @@ export function useLoginForm() {
     const onSubmit = handleSubmit(async values => {
             try {
                 let data = await login(values)
-                store.commit('auth/setToken', data.idToken)
-                store.commit('clearMessage', null, {root: true})
-                router.push('/')
+                AuthStore.setToken(data.idToken)
+                UiStore.clearMessage()
+                await router.push('/')
             } catch (e: any) {
                 await showError(e.response.data.error)
             }

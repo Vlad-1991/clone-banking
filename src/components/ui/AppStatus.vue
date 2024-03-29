@@ -1,5 +1,5 @@
-<template>
-  <span :class="['badge', className]">{{ text }}</span>
+<template lang="pug">
+  span(class="['badge', className]") {{ text }}
 </template>
 
 <script>

@@ -1,21 +1,16 @@
-<template>
-  <app-loader v-if="loading"></app-loader>
-  <app-page title="Список заявок" v-else>
-    <template #header>
-      <button class="btn primary" @click="modal = true">Создать</button>
-    </template>
+<template lang="pug">
+  app-loader(v-if="loading")
+  app-page(title="Список заявок" v-else)
+    template(#header)
+      button(class="btn primary" @click="modal = true") Создать
 
-    <request-filter v-model="filter"></request-filter>
-    <RequestTable :requests="requests"></RequestTable>
+    request-filter(v-model="filter")
+    RequestTable(:requests="requests")
 
 
-    <teleport to="body">
-      <app-modal v-if="modal" title="Создать заявку" @close="modal = false">
-        <request-modal @created="modal = false"></request-modal>
-      </app-modal>
-    </teleport>
-  </app-page>
-
+    teleport(to="body")
+      app-modal(v-if="modal" title="Создать заявку" @close="modal = false")
+        request-modal(@created="modal = false")
 </template>
 
 <script lang="ts">
@@ -38,8 +33,6 @@ export default {
     const modal = ref(false)
     const loading = ref(false)
     const filter = ref({name: '', status: ''})
-
-
 
     onMounted(async () => {
       loading.value = true

@@ -1,41 +1,34 @@
-<template>
-  <form @submit.prevent="onSubmit">
-    <div class="form-control" :class="{invalid: fError}">
-      <label for="fio">ФИО</label>
-      <input type="text" id="fio" placeholder="Сидоров Петр Иванович" v-model="fio" @blur="fBlur">
-      <small v-if="fError">{{fError}}</small>
-    </div>
+<template lang="pug">
+  form(@submit.prevent="onSubmit")
+    div(class="form-control" :class="{invalid: fError}")
+      label(for="fio")  ФИО
+      input(type="text" id="fio" placeholder="Сидоров Петр Иванович" v-model="fio" @blur="fBlur")
+      small(v-if="fError")  {{fError}}
 
-    <div class="form-control" :class="{invalid: pError}">
-      <label for="phone">Телефон</label>
-      <input type="tel" pattern="[0-9]{3}-{0,1}[0-9]{3}-{0,1}[0-9]{4}" placeholder="123-456-7890" id="phone" v-model="phone" @blur="pBlur">
-      <small v-if="pError">{{pError}}</small>
-    </div>
+    div(class="form-control" :class="{invalid: pError}")
+      label(for="phone")  Телефон
+      input(type="tel" pattern="[0-9]{3}-{0,1}[0-9]{3}-{0,1}[0-9]{4}" placeholder="123-456-7890" id="phone" v-model="phone" @blur="pBlur")
+      small(v-if="pError")  {{pError}}
 
-    <div class="form-control" :class="{invalid: aError}">
-      <label for="amount">Суммы</label>
-      <input type="number" placeholder="5000" id="amount" v-model.number="amount" @blur="aBlur">
-      <small v-if="aError">{{aError}}</small>
-    </div>
+    div(class="form-control" :class="{invalid: aError}")
+      label(for="amount") Суммы
+      input(type="number" placeholder="5000" id="amount" v-model.number="amount" @blur="aBlur")
+      small(v-if="aError")  {{aError}}
 
-    <div class="form-control">
-      <label for="status">Статус</label>
-      <select id="status" v-model="status">
-        <option value="done">Завершен</option>
-        <option value="cancelled">Отменен</option>
-        <option value="active">Активен</option>
-        <option value="pending">Выполняется</option>
-      </select>
-    </div>
+    div(class="form-control")
+      label(for="status") Статус
+      select(id="status" v-model="status")
+        option(value="done")  Завершен
+        option(value="cancelled") Отменен
+        option(value="active") Активен
+        option(value="pending") Выполняется
 
-    <button class="btn primary" :disabled="isSubmitting">Создать</button>
-  </form>
+    button(class="btn primary" :disabled="isSubmitting") Создать
 </template>
 
 <script lang="ts">
 import {useRequestForm} from "@/use/request-form";
 import {create} from "@/services/api/requests"
-import {ref} from "vue";
 import {showError} from "../../../utils/showError";
 import {useUiStore} from "@/stores/UiStore";
 import {useRequestsStore} from "@/stores/RequestsStore";

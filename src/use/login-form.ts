@@ -11,7 +11,6 @@ const MIN_LENGTH = 6
 
 export function useLoginForm() {
 
-    //const store = useStore()
     const UiStore = useUiStore()
     const AuthStore = useAuthStore()
     const router = useRouter()

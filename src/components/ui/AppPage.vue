@@ -1,15 +1,10 @@
-<template>
-  <div class="breadcrumbs" v-if="back">
-    <router-link to="/" class="text-white">Вернуться к списку заявок</router-link>
-  </div>
-  <div class="card">
-    <h1 class="card-title">
-      {{title}}
-      <slot name="header"></slot>
-    </h1>
-
-    <slot></slot>
-  </div>
+<template lang="pug">
+  div.breadcrumbs(v-if="back")
+    router-link(to="/" class="text-white") Вернуться к списку заявок
+  div.card
+    h1.card-title {{title}}
+      slot(name="header")
+    slot
 </template>
 
 <script>

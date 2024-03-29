@@ -1,13 +1,10 @@
-<template>
-  <div>
-    <div class="sidebar" v-if="sidebar">
-      <span class="sidebar-close" @click="close">&times;</span>
+<template lang="pug">
+  div
+    div.sidebar(v-if="sidebar")
+      span(class="sidebar-close" @click="close") &times;
 
-      <div class="sidebar-content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut cumque deserunt ea ex porro, veritatis?</p>
-      </div>
-    </div>
-  </div>
+      div.sidebar-content
+        p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut cumque deserunt ea ex porro, veritatis?
 </template>
 
 <script lang="ts">

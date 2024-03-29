@@ -1,10 +1,9 @@
-<template>
-  <the-navbar></the-navbar>
-  <the-sidebar></the-sidebar>
-  <div class="container with-nav">
-    <app-message></app-message>
-   <router-view></router-view>
-  </div>
+<template lang="pug">
+  the-navbar
+  the-sidebar
+  div.container.with-nav
+    app-message
+    router-view
 </template>
 
 <script lang="ts">

@@ -1,5 +1,5 @@
-<template>
-  <div class="loader"></div>
+<template lang="pug">
+  div.loader
 </template>
 
 <script>

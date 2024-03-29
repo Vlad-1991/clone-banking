@@ -1,14 +1,12 @@
-<template>
-  <div class="about">
-    <app-page title="Помощь" back>
-      <question-item
+<template lang="pug">
+  div.about
+    app-page(title="Помощь" back)
+      question-item(
           v-for="question in questions"
           :key="question.title"
           :question="question"
-      ></question-item>
-    </app-page>
-    <question-item :question="questions"></question-item>
-  </div>
+      )
+    question-item(:question="questions")
 </template>
 
 <script>

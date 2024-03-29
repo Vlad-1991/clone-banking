@@ -1,5 +1,5 @@
-<template>
-<component :is="layout + '-layout'" v-if="layout"></component>
+<template lang="pug">
+  component(:is="layout + '-layout'" v-if="layout")
 </template>
 
 <script lang="ts">

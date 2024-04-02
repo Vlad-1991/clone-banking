@@ -12,38 +12,26 @@
     button(class="btn warning" v-if="isActive" @click="reset")  Очистить
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {ref, watch, computed} from 'vue'
 
-export default {
-  emits: ['update:modelValue'],
-  props: ['modelValue'],
-  setup(_: any, {emit}: any) {
-    const name = ref()
-    const status = ref()
+const emit = defineEmits(['update:modelValue'])
+const props = defineProps(['modelValue'])
+const name = ref()
+const status = ref()
 
-    watch([name, status], values => {
-      emit('update:modelValue', {
-        name: values[0],
-        status: values[1]
-      })
-    })
-
-    const isActive = computed(() => name.value || status.value)
-
-    return {
-      name,
-      status,
-      isActive,
-      reset: () => {
-        name.value = ''
-        status.value = null
-      }
-    }
-  }
+const reset = () => {
+  name.value = ''
+  status.value = null
 }
+
+watch([name, status], values => {
+  emit('update:modelValue', {
+    name: values[0],
+    status: values[1]
+  })
+})
+
+const isActive = computed(() => name.value || status.value)
+
 </script>
-
-<style lang="scss" scoped>
-
-</style>

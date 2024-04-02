@@ -4,13 +4,6 @@
     router-view
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import AppMessage from "@/components/ui/AppMessage.vue";
-export default {
-components: {AppMessage}
-}
 </script>
-
-<style lang="scss" scoped>
-
-</style>

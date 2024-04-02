@@ -18,25 +18,31 @@
       | Попробуйте позже
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {useLoginForm} from "@/use/login-form";
 import {useRoute} from 'vue-router'
 import {error} from "../../utils/error";
 import {useUiStore} from "@/stores/UiStore";
+
 const UiStore = useUiStore()
 
-export default {
-  setup(){
-    const route = useRoute()
-    if (route.query.message){
-      UiStore.setMessage( {value: error(route.query.message),
-           type: 'warning'} )
-    }
-    return {...useLoginForm()}
-  }
+const route = useRoute()
+if (route.query.message) {
+  UiStore.setMessage({
+    value: error(route.query.message),
+    type: 'warning'
+  })
 }
+const {
+  email,
+  password,
+  eError,
+  pError,
+  eBlur,
+  pBlur,
+  onSubmit,
+  isSubmitting,
+  isTooManyAttempts
+} = useLoginForm()
+
 </script>
-
-<style lang="scss" scoped>
-
-</style>

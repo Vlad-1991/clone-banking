@@ -24,7 +24,7 @@
   </h3>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {useRoute, useRouter} from "vue-router";
 import AppPage from "@/components/ui/AppPage.vue";
 import {ref, onMounted, computed} from "vue";
@@ -35,8 +35,7 @@ import {loadById, removeById, updateRequest} from "@/services/api/requests";
 import {showError} from "../../utils/showError";
 import {useUiStore} from "@/stores/UiStore";
 
-export default {
-  setup(){
+
     const loading = ref(true)
     const route = useRoute()
     const router = useRouter()
@@ -88,12 +87,6 @@ export default {
       request.value.status = status.value
     }
 
-    return {loading, request, id: route.params.id, currency, remove, update, status, hasChanges}
-  },
-  components: {AppPage, AppLoader, AppStatus}
-}
+   const id = route.params.id
+
 </script>
-
-<style lang="scss" scoped>
-
-</style>

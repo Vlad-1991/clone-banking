@@ -5,18 +5,12 @@
     slot
 </template>
 
-<script>
-export default {
-  emits: ['close'],
-  props: {
-    title: {
-      type: String,
-      required: false
-    }
+<script setup lang="ts">
+const emit = defineEmits(['close'])
+const props = defineProps({
+  title: {
+    type: String,
+    required: false
   }
-}
+})
 </script>
-
-<style lang="scss" scoped>
-
-</style>

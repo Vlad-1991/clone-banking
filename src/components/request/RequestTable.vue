@@ -21,19 +21,10 @@
             button(class="btn" @click="navigate") Открыть
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {currency} from "../../../utils/currency";
 import AppStatus from "@/components/ui/AppStatus.vue";
 
-export default {
-  props: ['requests'],
-  setup(){
-    return {currency}
-  },
-  components: {AppStatus}
-}
+const props = defineProps(['requests'])
+
 </script>
-
-<style lang="scss" scoped>
-
-</style>

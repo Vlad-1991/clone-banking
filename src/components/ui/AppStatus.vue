@@ -1,22 +1,20 @@
 <template lang="pug">
-  span(class="['badge', className]") {{ text }}
+  span.badge(:class="className") {{ text }}
 </template>
 
-<script>
+<script setup lang="ts">
 import {ref, watch} from "vue";
 
-export default {
-  props: {
-    type: {
-      type: String,
-      required: true,
-      validator(value){
-        return ['active', 'cancelled', 'done', 'pending'].includes(value)
-      }
-    }
-  },
-  setup(props){
 
+  const props = defineProps({
+        type: {
+          type: String,
+          required: true,
+          validator(value){
+            return ['active', 'cancelled', 'done', 'pending'].includes(value)
+          }
+        }
+      })
 
     const classesMap = {
       active: 'primary',
@@ -40,13 +38,6 @@ export default {
     const className = ref(classesMap[props.type])
     const text = ref(textMap[props.type])
 
-
-    return {
-      className,
-      text
-    }
-  }
-}
 </script>
 
 <style lang="scss" scoped>

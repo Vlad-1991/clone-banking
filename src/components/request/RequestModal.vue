@@ -24,43 +24,53 @@
         option(value="pending") Выполняется
 
     button(class="btn primary" :disabled="isSubmitting") Создать
+
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {useRequestForm} from "@/use/request-form";
 import {create} from "@/services/api/requests"
 import {showError} from "../../../utils/showError";
 import {useUiStore} from "@/stores/UiStore";
 import {useRequestsStore} from "@/stores/RequestsStore";
 
-export default {
-  emits: ['created'],
-  setup: function (_: any, {emit}: any) {
+const emit = defineEmits(['created'])
 
-    const UiStore = useUiStore()
-    const RequestsStore = useRequestsStore()
 
-    const submit = async (values: any) => {
-      try {
-        let data = await create(values)
-        RequestsStore.addRequest({...values, id: data.name})
+const UiStore = useUiStore()
+const RequestsStore = useRequestsStore()
 
-        await UiStore.setMessage({
-          value: 'Заявка успешно создана',
-          type: 'primary'
-        })
+const submit = async (values: any) => {
+  try {
+    let data = await create(values)
+    RequestsStore.addRequest({...values, id: data.name})
 
-      } catch (e: any) {
-        await showError(e)
-      }
-      emit('created')
-    }
+    await UiStore.setMessage({
+      value: 'Заявка успешно создана',
+      type: 'primary'
+    })
 
-    return {
-      ...useRequestForm(submit)
-    }
+  } catch (e: any) {
+    await showError(e)
   }
+  emit('created')
 }
+
+const {
+  status,
+  isSubmitting,
+  onSubmit,
+  fio,
+  phone,
+  amount,
+  fError,
+  fBlur,
+  pError,
+  pBlur,
+  aError,
+  aBlur
+} = useRequestForm(submit)
+
 </script>
 
 <style lang="scss" scoped>

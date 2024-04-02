@@ -13,28 +13,22 @@
         a(href="#" @click.prevent="logout") Выход
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {useRouter} from "vue-router";
 import {useUiStore} from "@/stores/UiStore";
 import {useAuthStore} from "@/stores/AuthUserStore";
 
-export default {
-  setup(){
-    const router = useRouter()
-    const UiStore = useUiStore()
-    const AuthStore = useAuthStore()
+const router = useRouter()
+const UiStore = useUiStore()
+const AuthStore = useAuthStore()
 
-    return {
-      logout: () => {
-        AuthStore.logout()
-        router.push('/auth')
-      },
-      openSideBar: () => UiStore.openSideBar()
-    }
-  }
+
+const logout = () => {
+  AuthStore.logout()
+  router.push('/auth')
 }
+
+const openSideBar = () => UiStore.openSideBar()
+
+
 </script>
-
-<style lang="scss" scoped>
-
-</style>

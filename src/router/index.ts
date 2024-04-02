@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import {useAuthStore} from "@/stores/AuthUserStore";
+import MainLayout from "@/layout/MainLayout.vue";
+import AuthLayout from "@/layout/AuthLayout.vue";
 
 
 const routes = [
@@ -9,7 +11,7 @@ const routes = [
     name: 'Home',
     component: Home,
     meta: {
-      layout: 'main',
+      layout: MainLayout,
       auth: true
     }
   },
@@ -18,7 +20,7 @@ const routes = [
     name: 'Help',
     component: () => import('../views/Help.vue'),
     meta: {
-      layout: 'main',
+      layout: MainLayout,
       auth: true
     }
   },
@@ -27,7 +29,7 @@ const routes = [
     name: 'Request',
     component: () => import('../views/Request.vue'),
     meta: {
-      layout: 'main',
+      layout: MainLayout,
       auth: true
     }
   },
@@ -36,7 +38,7 @@ const routes = [
     name: 'Auth',
     component: () => import('../views/Auth.vue'),
     meta: {
-      layout: 'auth',
+      layout: AuthLayout,
       auth: false
     }
   }

@@ -4,19 +4,12 @@
       div(class="question-body" v-if="isOpen") {{question.text}}
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {ref} from "vue";
 
-export default {
-  props: ['question'],
-  setup(){
-    return {
-      isOpen: ref(false)
-    }
-  }
-}
+const isOpen = ref(false)
+
+const props = defineProps({
+  question: Object
+})
 </script>
-
-<style lang="scss" scoped>
-
-</style>

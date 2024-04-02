@@ -7,26 +7,20 @@
     slot
 </template>
 
-<script>
+<script setup lang="ts">
 
-
-export default {
-  props: {
-    title: {
-      type: String,
-      required: true
-    },
-    back: {
-      type: Boolean,
-      default: false
-    }
+const props = defineProps({
+  title: {
+    type: String,
+    required: true
   },
-  setup(props){
-    document.title = `${props.title} | Клон Банка`
+  back: {
+    type: Boolean,
+    default: false
   }
-}
+})
+
+document.title = `${props.title} | Клон Банка`
+
+
 </script>
-
-<style lang="scss" scoped>
-
-</style>

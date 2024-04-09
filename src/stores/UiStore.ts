@@ -1,5 +1,9 @@
 import {defineStore} from "pinia";
-type state = {message: null | string, sidebar: boolean}
+type state = {message: MessageType | null, sidebar: boolean}
+interface MessageType {
+    value: any
+    type: string
+}
 
 export const useUiStore = defineStore("UiStore", {
         state: (): state => {
@@ -9,7 +13,7 @@ export const useUiStore = defineStore("UiStore", {
             };
         },
         actions: {
-            async setMessage(message: any): Promise<void>{
+            async setMessage(message: MessageType): Promise<void>{
                 this.message = message
                 setTimeout((): void => {
                     this.clearMessage()

@@ -33,6 +33,7 @@ if (route.query.message) {
     type: 'warning'
   })
 }
+
 const {
   email,
   password,

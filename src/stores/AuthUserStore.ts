@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-const TOKEN_KEY = 'jwt-token'
+const TOKEN_KEY: string = 'jwt-token'
 type state = {token: (string | null)}
 
 export const useAuthStore = defineStore("AuthStore", {
@@ -12,8 +12,9 @@ export const useAuthStore = defineStore("AuthStore", {
         getToken(): string | null {
             return this.token
         },
-        isAuthentificated(getters: any): boolean{
-            return !!getters.token
+        /* function returns true if token exists and false if token is empty */
+        isAuthentificated(): boolean{
+            return !!this.getToken
         }
     },
     actions: {

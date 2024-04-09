@@ -5,7 +5,7 @@ const requestAxios: AxiosInstance = axios.create({
     baseURL: process.env.VUE_APP_FB_URL
 })
 
-requestAxios.interceptors.response.use(null, error => {
+requestAxios.interceptors.response.use(null, (error: any) => {
     if(error.response.status === 401){
         router.push('/auth?message=auth')
     }

@@ -8,13 +8,19 @@
       )
 </template>
 
+
+
 <script setup lang="ts">
 import AppPage from "@/components/ui/AppPage.vue";
 import QuestionItem from "@/components/question/QuestionItem.vue";
 
-const questions = [
+interface question {
+  title: string
+  text: string
+}
+
+const questions: question[] = [
   {title: 'Что есть в данной системе?', text: 'Тут есть все чтобы смотреть заявки'},
   {title: 'Как тут работает авторизация?', text: 'Все реализовано на Firebase'}
 ]
-
 </script>

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory, NavigationGuardNext, RouteLocationNormalized, Router} from 'vue-router'
 import Home from '../views/Home.vue'
 import {useAuthStore} from "@/stores/AuthUserStore";
 import MainLayout from "@/layout/MainLayout.vue";
@@ -44,14 +44,14 @@ const routes = [
   }
 ]
 
-const router = createRouter({
+const router: Router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
   linkExactActiveClass: 'active',
   linkActiveClass: 'active'
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void => {
   const AuthStore = useAuthStore()
   const requireAuth = to.meta.auth
 

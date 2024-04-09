@@ -1,19 +1,31 @@
-import {useField, useForm} from "vee-validate";
+import {GenericObject, useField, useForm} from "vee-validate";
 import * as yup from "yup";
-import {computed, watch} from "vue";
+import {computed, ComputedRef, Ref, watch} from "vue";
 import {useUiStore} from "@/stores/UiStore";
 import {useAuthStore} from "@/stores/AuthUserStore";
-import {useRouter} from 'vue-router'
+import {Router, useRouter} from 'vue-router'
 import {login} from "@/services/api/auth";
 import {showError} from "../../utils/showError";
 
-const MIN_LENGTH = 6
+interface LoginFormType {
+    email: Ref<unknown>
+    password: Ref<unknown>
+    eError: Ref<string | undefined>
+    pError: Ref<string | undefined>
+    eBlur: Function
+    pBlur: Function
+    onSubmit: Function
+    isSubmitting: Ref<boolean>
+    isTooManyAttempts: ComputedRef<boolean>
+}
 
-export function useLoginForm() {
+const MIN_LENGTH: number = 6
 
-    const UiStore = useUiStore()
+export function useLoginForm(): LoginFormType {
+
+    const UiStore= useUiStore()
     const AuthStore = useAuthStore()
-    const router = useRouter()
+    const router: Router = useRouter()
     const {handleSubmit, isSubmitting, submitCount} = useForm()
 
     const {value: email, errorMessage: eError, handleBlur: eBlur} = useField(
@@ -28,15 +40,15 @@ export function useLoginForm() {
             .min(MIN_LENGTH, `Пароль не может быть меньше ${MIN_LENGTH} символов`)
     )
 
-    const isTooManyAttempts = computed(() => submitCount.value >= 3)
+    const isTooManyAttempts: ComputedRef<boolean> = computed((): boolean => submitCount.value >= 3)
 
-    watch(isTooManyAttempts, val => {
+    watch(isTooManyAttempts, (val: boolean): void => {
         if (val) {
-            setTimeout(() => submitCount.value = 0, 1500)
+            setTimeout((): number => submitCount.value = 0, 1500)
         }
     })
 
-    const onSubmit = handleSubmit(async values => {
+    const onSubmit = handleSubmit(async (values: GenericObject): Promise<void> => {
             try {
                 let data = await login(values)
                 AuthStore.setToken(data.idToken)

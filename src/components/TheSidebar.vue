@@ -8,13 +8,14 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed, ComputedRef} from "vue";
 import {useUiStore} from "@/stores/UiStore";
+
 
 const UiStore = useUiStore()
 
-const sidebar = computed(() => UiStore.sidebar)
+const sidebar: ComputedRef<boolean> = computed((): boolean => UiStore.sidebar)
 
-const close = () => UiStore.closeSideBar()
+const close = (): void => UiStore.closeSideBar()
 </script>
 

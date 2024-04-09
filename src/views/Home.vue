@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed, onMounted} from "vue";
+import {ref, computed, onMounted, ComputedRef} from "vue";
 import AppPage from "@/components/ui/AppPage.vue";
 import RequestTable from "@/components/request/RequestTable.vue";
 import AppModal from "@/components/ui/AppModal.vue";
@@ -31,20 +31,20 @@ const modal = ref(false)
 const loading = ref(false)
 const filter = ref({name: '', status: ''})
 
-onMounted(async () => {
+onMounted(async (): Promise<void> => {
   loading.value = true
 
   try {
     let requests = await load()
     RequestsStore.setRequests(requests)
-  } catch (e: any) {
+  } catch (e: unknown) {
     await showError(e)
   }
 
   loading.value = false
 })
 
-const requests = computed(() => RequestsStore.getRequests
+const requests: ComputedRef<requestType[]> = computed(() => RequestsStore.getRequests
     .filter((request: requestType) => {
       if (filter.value.name) {
         return (request.fio).toLowerCase().includes(filter.value.name.toLowerCase())

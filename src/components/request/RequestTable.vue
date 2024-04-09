@@ -25,6 +25,14 @@
 import {currency} from "../../../utils/currency";
 import AppStatus from "@/components/ui/AppStatus.vue";
 
-const props = defineProps(['requests'])
+interface requestType {
+  amount: number,
+  fio: string
+  phone: string
+  status: string
+  id: string
+}
+
+const props = defineProps<{requests: Array<requestType>}>()
 
 </script>

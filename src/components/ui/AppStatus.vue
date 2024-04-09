@@ -3,43 +3,46 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from "vue";
+import {Ref, ref, watch, WatchCallback} from "vue";
+import {object, string} from "yup";
 
 
-  const props = defineProps({
-        type: {
-          type: String,
-          required: true,
-          validator(value){
-            return ['active', 'cancelled', 'done', 'pending'].includes(value)
-          }
-        }
-      })
-
-    const classesMap = {
-      active: 'primary',
-      cancelled: 'danger',
-      done: 'primary',
-      pending: 'warning'
+const props = defineProps({
+  type: {
+    type: String,
+    required: true,
+    validator(value: string) {
+      return ['active', 'cancelled', 'done', 'pending'].includes(value)
     }
+  }
+})
 
-    const textMap = {
-      active: 'Активен',
-      cancelled: 'Отменен',
-      done: 'Завершен',
-      pending: 'Выполняется'
-    }
+interface valueMap {
+  active: string
+  cancelled: string
+  done: string
+  pending: string
+}
 
-    watch(props, value => {
-      className.value = classesMap[value.type]
-      text.value = textMap[value.type]
-    })
+const classesMap: valueMap = {
+  active: 'primary',
+  cancelled: 'danger',
+  done: 'primary',
+  pending: 'warning'
+}
 
-    const className = ref(classesMap[props.type])
-    const text = ref(textMap[props.type])
+const textMap: valueMap = {
+  active: 'Активен',
+  cancelled: 'Отменен',
+  done: 'Завершен',
+  pending: 'Выполняется'
+}
 
+const className: Ref<string> = ref(classesMap[props.type])
+const text: Ref<string> = ref(textMap[props.type])
+
+watch(props, (value: string): void => {
+  className.value = classesMap[value.type]
+  text.value = textMap[value.type]
+})
 </script>
-
-<style lang="scss" scoped>
-
-</style>

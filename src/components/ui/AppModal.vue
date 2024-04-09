@@ -7,10 +7,5 @@
 
 <script setup lang="ts">
 const emit = defineEmits(['close'])
-const props = defineProps({
-  title: {
-    type: String,
-    required: false
-  }
-})
+const props = defineProps<{title: string}>()
 </script>

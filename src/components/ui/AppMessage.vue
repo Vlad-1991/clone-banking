@@ -7,21 +7,27 @@
 
 <script setup lang="ts">
 import {useUiStore} from "@/stores/UiStore";
-import {computed} from "vue";
+import {computed, ComputedRef} from "vue";
+
+interface titleMap {
+  primary: string
+  danger: string
+  warning: string
+}
 
 const UiStore = useUiStore()
-const TITLE_MAP = {
+
+const TITLE_MAP: titleMap = {
   primary: 'Успешно!',
   danger: 'Ошибка!',
   warning: 'Внимание!'
 }
 
-const message = computed(() => UiStore.message)
-const title = computed(() => message.value ? TITLE_MAP[message.value.type] : null)
+const message: ComputedRef<string | null> = computed(() => UiStore.message)
+const title: (ComputedRef<string | null> | null) = computed(() => message.value ? TITLE_MAP[message.value.type] : null)
 
 const close = () => {
   UiStore.clearMessage()
 }
-
 
 </script>

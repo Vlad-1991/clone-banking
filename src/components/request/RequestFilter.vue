@@ -13,12 +13,17 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch, computed} from 'vue'
+import {ref, watch, computed, Ref} from 'vue'
+
+interface filterType {
+  name: string
+  status: string
+}
 
 const emit = defineEmits(['update:modelValue'])
-const props = defineProps(['modelValue'])
-const name = ref()
-const status = ref()
+const props = defineProps<{modelValue: filterType}>()
+const name: Ref<string | undefined> = ref()
+const status: Ref<string | null> = ref(null)
 
 const reset = () => {
   name.value = ''

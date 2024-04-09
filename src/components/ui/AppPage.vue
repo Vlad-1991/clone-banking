@@ -9,18 +9,12 @@
 
 <script setup lang="ts">
 
-const props = defineProps({
-  title: {
-    type: String,
-    required: true
-  },
-  back: {
-    type: Boolean,
-    default: false
-  }
-})
+const props = defineProps<{
+  title: string
+  back?: boolean
+}>()
 
-document.title = `${props.title} | Клон Банка`
+document.title = props.title + " | Клон Банка"
 
 
 </script>

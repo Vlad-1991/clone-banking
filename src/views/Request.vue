@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import {useRoute, useRouter} from "vue-router";
 import AppPage from "@/components/ui/AppPage.vue";
-import {ref, onMounted, computed} from "vue";
+import {ref, onMounted, computed, ComputedRef} from "vue";
 import AppLoader from "@/components/ui/AppLoader.vue";
 import AppStatus from "@/components/ui/AppStatus.vue";
 import {currency} from "../../utils/currency";
@@ -42,13 +42,14 @@ import {useUiStore} from "@/stores/UiStore";
     const UiStore = useUiStore()
     const status = ref()
     const request = ref({status: ''})
+    const id = route.params.id
 
-    onMounted(async () => {
+    onMounted(async (): Promise<void> => {
       loading.value = true
 
       try {
-        request.value = await loadById(route.params.id)
-      } catch (e: any) {
+        request.value = await loadById(id)
+      } catch (e: unknown) {
         await showError(e)
       }
 
@@ -57,36 +58,35 @@ import {useUiStore} from "@/stores/UiStore";
       loading.value = false
     })
 
-    const hasChanges = computed(() => request.value.status !== status.value)
+    const hasChanges: ComputedRef<boolean> = computed(() => request.value.status !== status.value)
 
-    const remove = async () => {
+    const remove = async (): Promise<void> => {
       try{
-        await removeById(route.params.id)
+        await removeById(id)
         await UiStore.setMessage({
           value: 'Заявка удалена',
           type: 'primary'
         })
-      } catch (e: any) {
+      } catch (e: unknown) {
         await showError(e)
       }
 
       router.push('/')
     }
 
-    const update = async () => {
-      const data = {...request.value, status: status.value, id: route.params.id}
+
+    const update = async (): Promise<void> => {
+      const data: Object = {...request.value, status: status.value, id: id}
       try{
         await updateRequest(data)
         await UiStore.setMessage({
           value: 'Заявка обновлена',
           type: 'primary'
         })
-      }catch (e) {
+      }catch (e: unknown) {
         await showError(e)
       }
       request.value.status = status.value
     }
-
-   const id = route.params.id
 
 </script>

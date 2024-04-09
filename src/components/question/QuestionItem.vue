@@ -9,7 +9,11 @@ import {ref} from "vue";
 
 const isOpen = ref(false)
 
-const props = defineProps({
-  question: Object
-})
+interface QuestionType {
+  title: string
+  text: string
+}
+
+const props = defineProps<{question: QuestionType}>()
+
 </script>

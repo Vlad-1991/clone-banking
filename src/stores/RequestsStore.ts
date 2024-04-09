@@ -1,6 +1,9 @@
 import {defineStore} from "pinia";
-import {requestType} from "../../utils/requestType";
-type state = { requests: requestType[] }
+import {RequestType} from "../../utils/requestType";
+
+type state = { requests: RequestType[] }
+
+
 
 export const useRequestsStore = defineStore("RequestsStore", {
     state: (): state => {
@@ -9,15 +12,15 @@ export const useRequestsStore = defineStore("RequestsStore", {
         }
     },
     getters: {
-        getRequests(): requestType[] {
+        getRequests(): RequestType[] {
             return this.requests
         }
     },
     actions: {
-        setRequests(requests: requestType[]): void {
+        setRequests(requests: RequestType[]): void {
             this.requests = requests
         },
-        addRequest(request: requestType): void {
+        addRequest(request: RequestType): void {
             this.requests.push(request)
         }
     }

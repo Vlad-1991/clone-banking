@@ -23,12 +23,12 @@ const UiStore = useUiStore()
 const AuthStore = useAuthStore()
 
 
-const logout = () => {
+const logout = (): void => {
   AuthStore.logout()
   router.push('/auth')
 }
 
-const openSideBar = () => UiStore.openSideBar()
+const openSideBar = (): void => UiStore.openSideBar()
 
 
 </script>

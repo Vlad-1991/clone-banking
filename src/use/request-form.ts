@@ -1,7 +1,23 @@
 import {useField, useForm} from "vee-validate";
 import * as yup from 'yup'
+import {Ref} from "vue";
 
-export function useRequestForm(fn: any){
+interface RequestFormType {
+    status: Ref<unknown>
+    isSubmitting: Ref<boolean>
+    onSubmit: Function
+    fio: Ref<unknown>
+    phone: Ref<unknown>
+    amount: Ref<unknown>
+    fError: Ref<string | undefined>
+    fBlur: Function
+    pError: Ref<string | undefined>
+    pBlur: Function
+    aError: Ref<string | undefined>
+    aBlur: Function
+}
+
+export function useRequestForm(fn: any): RequestFormType{
     const {isSubmitting, handleSubmit} = useForm({
         initialValues: {
             status: 'active'

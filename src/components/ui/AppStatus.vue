@@ -3,8 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import {Ref, ref, watch, WatchCallback} from "vue";
-import {object, string} from "yup";
+import {Ref, ref, watch} from "vue";
 
 
 const props = defineProps({

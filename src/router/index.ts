@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import {useAuthStore} from "@/stores/AuthUserStore";
 import MainLayout from "@/layout/MainLayout.vue";
 import AuthLayout from "@/layout/AuthLayout.vue";
+import PageNotFound from "@/views/PageNotFound.vue";
 
 
 const routes = [
@@ -40,6 +41,15 @@ const routes = [
     meta: {
       layout: AuthLayout,
       auth: false
+    }
+  },
+  {
+    path: '/:any(.*)',
+    name: 'PageNotFound',
+    component: PageNotFound,
+    meta: {
+      layout: MainLayout,
+      auth: true
     }
   }
 ]

@@ -1,27 +1,23 @@
-<template>
-  <app-loader v-if="loading"></app-loader>
-  <app-page title="Заявка" v-else-if="request" back>
-    <p><strong>Имя владельца</strong>: {{request.fio}}</p>
-    <p><strong>Телефон</strong>: {{request.phone}}</p>
-    <p><strong>Сумма</strong>: {{currency(request.amount)}}</p>
-    <p><strong>Статус</strong>: <app-status :type="request.status"></app-status></p>
+<template lang="pug">
+  app-loader(v-if="loading")
+  app-page(title="Заявка" v-else-if="request" back)
+    p <strong> Имя владельца:</strong> {{request.fio}}
+    p <strong>Телефон</strong>: {{request.phone}}
+    p <strong>Сумма</strong>: {{currency(request.amount)}}
+    p <strong>Статус</strong>:
+      app-status(:type="request.status")
 
-    <div class="form-control">
-      <label for="status">Статус</label>
-      <select id="status" v-model="status">
-        <option value="done">Завершен</option>
-        <option value="cancelled">Отменен</option>
-        <option value="active">Активен</option>
-        <option value="pending">Выполняется</option>
-      </select>
-    </div>
+    div.form-control
+      label(for="status") Статус
+      select(id="status" v-model="status")
+        option(value="done") Завершен
+        option(value="cancelled") Отменен
+        option(value="active") Активен
+        option(value="pending") Выполняется
 
-    <button class="btn danger" @click="remove">Удалить</button>
-    <button class="btn" @click="update" v-if="hasChanges">Обновить</button>
-  </app-page>
-  <h3 v-else class="text-center text-white">
-    Заявки с ID = {{id}} нет.
-  </h3>
+    button(class="btn danger" @click="remove") Удалить
+    button(class="btn" @click="update" v-if="hasChanges") Обновить
+  h3(v-else class="text-center text-white") Заявки с ID = {{id}} нет.
 </template>
 
 <script setup lang="ts">
